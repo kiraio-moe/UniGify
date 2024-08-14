@@ -71,7 +71,7 @@ namespace Kiraio.UniGify.Components
 
         protected virtual void OnDestroy()
         {
-            cts?.Cancel();
+            cts?.Dispose();
         }
 
         async UniTask StartSpriteUpdateAsync()
