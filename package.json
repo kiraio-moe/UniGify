@@ -1,0 +1,23 @@
+{
+  "name": "com.kiraio.uni-gify",
+  "version": "1.0.0",
+  "displayName": "UniGify",
+  "description": "GIF decoder/viewer for Unity",
+  "unity": "2022.3",
+  "unityRelease": "0b5",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.5"
+  },
+  "keywords": [
+    "gif",
+    "asynchronous"
+  ],
+  "author": {
+    "name": "kiraio",
+    "email": "itsyuukunz@gmail.com",
+    "url": "https://kiraio.my.id"
+  }
+}

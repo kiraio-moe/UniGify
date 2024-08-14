@@ -1,0 +1,18 @@
+{
+    "name": "Kiraio.UniGify.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:051717ba62af1f343bdf7f379d6aeb3b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
