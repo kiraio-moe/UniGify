@@ -8,12 +8,9 @@ namespace Kiraio.UniGify.Editor.Components
     [CustomEditor(typeof(GifImage))]
     public class GifImageEditor : GifViewerEditor<GifImage>
     {
-        SerializedProperty imageProperty;
-
         protected override void OnEnable()
         {
             base.OnEnable();
-            imageProperty = serializedObject.FindProperty("image");
         }
 
         protected override void OnCustomInspectorGUI(GifImage gifImage)
@@ -23,9 +20,9 @@ namespace Kiraio.UniGify.Editor.Components
 
             Texture2D sourceTexture = (Texture2D)sourceFieldInfo.GetValue(gifImage);
 
-            // Ensure the sprite is set
-            if (GUI.changed && sourceTexture != null)
-                gifImage.Image.sprite = gifImage.Texture2DToSprite(sourceTexture);
+            if (GUI.changed)
+                gifImage.Image.sprite =
+                    sourceTexture != null ? gifImage.Texture2DToSprite(sourceTexture) : null;
 
             serializedObject.ApplyModifiedProperties();
         }

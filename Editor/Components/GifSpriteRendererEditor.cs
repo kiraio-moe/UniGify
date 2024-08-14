@@ -7,12 +7,9 @@ namespace Kiraio.UniGify.Editor.Components
     [CustomEditor(typeof(GifSpriteRenderer))]
     public class GifSpriteRendererEditor : GifViewerEditor<GifSpriteRenderer>
     {
-        SerializedProperty rendererProperty;
-
         protected override void OnEnable()
         {
             base.OnEnable();
-            rendererProperty = serializedObject.FindProperty("spriteRenderer");
         }
 
         protected override void OnCustomInspectorGUI(GifSpriteRenderer gifSpriteRenderer)
@@ -22,11 +19,11 @@ namespace Kiraio.UniGify.Editor.Components
 
             Texture2D sourceTexture = (Texture2D)sourceFieldInfo.GetValue(gifSpriteRenderer);
 
-            // Ensure the sprite is set
-            if (GUI.changed && sourceTexture != null)
-                gifSpriteRenderer.Renderer.sprite = gifSpriteRenderer.Texture2DToSprite(
-                    sourceTexture
-                );
+            if (GUI.changed)
+                gifSpriteRenderer.Renderer.sprite =
+                    sourceTexture != null
+                        ? gifSpriteRenderer.Texture2DToSprite(sourceTexture)
+                        : null;
 
             serializedObject.ApplyModifiedProperties();
         }
