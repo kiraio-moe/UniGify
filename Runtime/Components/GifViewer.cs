@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kiraio.UniGify.Decoder;
@@ -10,25 +9,14 @@ namespace Kiraio.UniGify.Components
     public abstract class GifViewer : MonoBehaviour
     {
         [SerializeField]
-        Texture2D m_Source;
+        TextAsset m_Source;
 
         [SerializeField]
         bool m_PlayOnStart = true;
 
-        [SerializeField]
-        string sourcePath;
         int currentFrame;
         List<GifDecoder.GifFrame> frames = new List<GifDecoder.GifFrame>();
         CancellationTokenSource cts;
-
-        /// <summary>
-        /// Path to the .gif file.
-        /// </summary>
-        public string SourcePath
-        {
-            get => sourcePath;
-            set => sourcePath = value;
-        }
 
         /// <summary>
         /// Current frame that's being displayed.
@@ -60,7 +48,7 @@ namespace Kiraio.UniGify.Components
 
         protected virtual void Awake()
         {
-            Frames = new GifDecoder().Decode(SourcePath);
+            Frames = new GifDecoder().Decode(m_Source.GetData<byte>().ToArray());
         }
 
         protected virtual async void Start()

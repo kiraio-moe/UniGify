@@ -23,11 +23,12 @@ namespace Kiraio.UniGify.Decoder
         }
 
         /// <summary>
-        /// Decode the .gif from <paramref name="buffer"/>.
+        /// Decode .gif from a <paramref name="buffer"/>.
         /// </summary>
-        /// <param name="buffer"></param>
+        /// <param name="buffer">The <paramref name="buffer"/>data.</param>
+        /// <param name="length">How much frame we should get. <= 0 for all frames.</param>
         /// <returns></returns>
-        public List<GifFrame> Decode(byte[] buffer)
+        public List<GifFrame> Decode(byte[] buffer, int length = 0)
         {
             List<GifFrame> gifFrames = new List<GifFrame>();
 
@@ -35,18 +36,17 @@ namespace Kiraio.UniGify.Decoder
             {
                 if (codec == null)
                 {
-                    Debug.LogError("Failed to create SKCodec from byte array.");
+                    Debug.LogError("Failed to create SKCodec from byte array! Invalid .gif data.");
                     return gifFrames;
                 }
 
                 SKBitmap bitmap = new SKBitmap(codec.Info.Width, codec.Info.Height);
                 SKImageInfo info = bitmap.Info;
 
-                for (int i = 0; i < codec.FrameCount; i++)
+                for (int i = 0; i < (length <= 0 ? codec.FrameCount : length); i++)
                 {
                     // Get the frame information for the current frame
-                    SKCodecFrameInfo frameInfo;
-                    codec.GetFrameInfo(i, out frameInfo);
+                    codec.GetFrameInfo(i, out SKCodecFrameInfo frameInfo);
 
                     // Decode the frame into the bitmap
                     SKCodecResult result = codec.GetPixels(

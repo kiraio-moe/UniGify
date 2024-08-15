@@ -1,4 +1,5 @@
 using Kiraio.UniGify.Components;
+using Kiraio.UniGify.Decoder;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,12 +18,15 @@ namespace Kiraio.UniGify.Editor.Components
             if (gifSpriteRenderer.Renderer == null)
                 gifSpriteRenderer.Renderer = gifSpriteRenderer.GetComponent<SpriteRenderer>();
 
-            Texture2D sourceTexture = (Texture2D)sourceFieldInfo.GetValue(gifSpriteRenderer);
+            TextAsset gifAsset = (TextAsset)sourceFieldInfo.GetValue(gifSpriteRenderer);
+            GifDecoder decoder = new GifDecoder();
 
             if (GUI.changed)
                 gifSpriteRenderer.Renderer.sprite =
-                    sourceTexture != null
-                        ? gifSpriteRenderer.Texture2DToSprite(sourceTexture)
+                    gifAsset != null
+                        ? gifSpriteRenderer.Texture2DToSprite(
+                            decoder.Decode(gifAsset.GetData<byte>().ToArray(), 1)[0].Texture
+                        )
                         : null;
 
             serializedObject.ApplyModifiedProperties();

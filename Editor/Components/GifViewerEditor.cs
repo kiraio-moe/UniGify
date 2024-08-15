@@ -1,7 +1,6 @@
 using System.Reflection;
 using Kiraio.UniGify.Components;
 using UnityEditor;
-using UnityEngine;
 
 namespace Kiraio.UniGify.Editor.Components
 {
@@ -43,10 +42,12 @@ namespace Kiraio.UniGify.Editor.Components
 
             // Get a reference to the target component
             T gifViewer = (T)target;
-            Texture2D sourceTexture = (Texture2D)sourceFieldInfo.GetValue(gifViewer);
+            // TextAsset sourceTexture = (TextAsset)sourceFieldInfo.GetValue(gifViewer);
 
-            if (GUI.changed)
-                gifViewer.SourcePath = AssetDatabase.GetAssetPath(sourceTexture) ?? string.Empty;
+            // if (GUI.changed)
+            //     gifViewer.SourcePath =
+            //         AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(sourceTexture), AssetPathToGUIDOptions.OnlyExistingAssets)
+            //         ?? string.Empty;
 
             OnCustomInspectorGUI(gifViewer);
         }
